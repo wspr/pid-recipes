@@ -79,6 +79,7 @@ switch M
     H = pidstd(Kp,Ti,Td,N);
     
   case 'KT1'
+    % Ms = 1.4
     aKp = 3.80*exp(-8.40*tau+7.3*tau^2);
     TiL = 5.20*exp(-2.50*tau-1.4*tau^2);
     TdL = 0.89*exp(-0.37*tau-4.1*tau^2);
@@ -90,9 +91,10 @@ switch M
     b  = 0.22*exp(0.65*tau+0.051*tau^2);
     
     g = struct('Kp',Kp,'Ti',Ti,'Td',Td,'b',b);
-    H = {pidstd(b*Kp,Ti,Td,N),pidstd(Kp,Ti,Td,N)};
+    H = pidstd2(Kp,Ti,Td,N,b,0);
 
   case 'KT2'
+    % Ms = 1.4
     aKp = 8.4*exp(-9.6*tau+9.8*tau^2);
     TiL = 3.2*exp(-1.5*tau-0.93*tau^2);
     TdL = 0.86*exp(-1.9*tau-0.44*tau^2);
@@ -104,7 +106,7 @@ switch M
     b  = 0.22*exp(0.65*tau+0.051*tau^2);
     
     g = struct('Kp',Kp,'Ti',Ti,'Td',Td,'b',b);
-    H = {pidstd(b*Kp,Ti,Td,N),pidstd(Kp,Ti,Td,N)};
+    H = pidstd2(Kp,Ti,Td,N,b,0);
 
   otherwise
     error('Method unknown')
