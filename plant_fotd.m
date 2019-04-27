@@ -1,4 +1,4 @@
-function [k0,L,T,tau] = plant_fotd(Gmodel,time,nt)
+function [k0,L,T,a,tau] = plant_fotd(Gmodel,time,nt)
 
 if nargin < 3
   nt = [0.05 0.63];
