@@ -27,6 +27,7 @@ function [H,g] = method_pid(M,k,L,T,N)
 
 a   = k*L/T;
 tau = L/(L+T);
+R   = a/L;
 
 switch M
   case 'ZN'
@@ -75,6 +76,19 @@ switch M
     Kp = (0.7303+0.5307*T/L)*(T+0.5*L)/k/(L+T);
     Ti = T+0.5*L;
     Td = L*T/(2*T+L);
+    g = struct('Kp',Kp,'Ti',Ti,'Td',Td);
+    H = pidstd(Kp,Ti,Td,N);
+    
+  case 'FCL' % "Simplified IMC-PID tuning rules"
+    
+    Kp = 1/(2*a);
+    if T/L > 3
+      Ti = 5*L;
+    else
+      Ti = T;
+    end
+    Td = 0.5*L;
+    
     g = struct('Kp',Kp,'Ti',Ti,'Td',Td);
     H = pidstd(Kp,Ti,Td,N);
     
